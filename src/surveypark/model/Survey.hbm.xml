@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Aug 30, 2015 11:03:54 AM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="surveypark.model.Survey" table="SURVEY">
+        <id name="id" type="java.lang.Integer">
+            <column name="ID" />
+            <generator class="native" />
+        </id>
+        <property name="titleTxt" type="java.lang.String">
+            <column name="TITLETXT" />
+        </property>
+        <property name="prevTxt" type="java.lang.String">
+            <column name="PREVTXT" />
+        </property>
+        <property name="nextTxt" type="java.lang.String">
+            <column name="NEXTTXT" />
+        </property>
+        <property name="exitTxt" type="java.lang.String">
+            <column name="EXITTXT" />
+        </property>
+        <property name="createTime" type="java.util.Date">
+            <column name="CREATETIME" />
+        </property>
+        <many-to-one name="user" class="surveypark.model.User">
+            <column name="userid" />
+        </many-to-one>
+        <set name="pages" inverse="true" order-by="id">
+        	<key column="surveyid"></key>
+        	<one-to-many class="surveypark.model.Page"/>
+        </set>
+    </class>
+</hibernate-mapping>
