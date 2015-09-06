@@ -2,6 +2,11 @@ package surveypark.struts2.action;
 
 import javax.annotation.Resource;
 
+import org.springframework.context.ApplicationContext;
+
+import com.opensymphony.xwork2.ActionContext;
+import com.opensymphony.xwork2.util.ValueStack;
+
 import surveypark.model.Page;
 import surveypark.model.Question;
 import surveypark.model.Survey;
@@ -81,9 +86,9 @@ public class QuestionAction extends BaseAction<Question>{
 		page.setId(pId);
 		
 		//System.out.println("save or update question: :"+getModel());
-		System.out.println("size: "+page.getQuestions().size());
+		//System.out.println("size: "+page.getQuestions().size());
 		page.getQuestions().add(getModel());
-		System.out.println("size: "+page.getQuestions().size());
+		//System.out.println("size: "+page.getQuestions().size());
 		getModel().setPage(page);
 		getModel().setSurvey(survey);
 //		System.out.println("***save or update**** ");
@@ -99,6 +104,13 @@ public class QuestionAction extends BaseAction<Question>{
 		surveyService.deleteQuestion(qId);
 		return "designSurveyAction";
 	}
-	
+	public String editQuestion(){
+		this.question=surveyService.getQuestion(qId);
+		ValueStack stack=ActionContext.getContext().getValueStack();
+		stack.pop();
+		stack.push(getModel());
+		//System.out.println("qt: "+getModel().getQuestionType());
+		return ""+getModel().getQuestionType();
+	}
 	
 }

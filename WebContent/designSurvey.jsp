@@ -87,7 +87,7 @@
 																				<!-- the question -->
 																				<td class="tdQHeaderL"><s:property value="#q.title" /></td>
 																				<td class="tdQHeaderR">
-																					<s:a namespace="/" action="">Modify Question</s:a>&nbsp;
+																					<s:a namespace="/" action="question_editQuestion?qId=%{#qId}&sid=%{#sid}&pId=%{#pId}">Modify Question</s:a>&nbsp;
 																					<s:a namespace="/" action="question_deleteQuestion?qId=%{#qId}&sid=%{#sid}">Delete Question</s:a>&nbsp;
 																				</td>
 																			</tr>

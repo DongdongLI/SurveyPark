@@ -71,7 +71,7 @@
 			<result name="7">/matrixNormalQuestionDesign.jsp</result>
 			<result name="8">/matrixSelectQuestionDesign.jsp</result>
 			
-			<result name="saveOrUpdate">/?</result>
+			
 			
 		</action>
 	</package>

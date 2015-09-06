@@ -127,5 +127,11 @@ public class SurveyServiceImpl extends BaseServiceImpl<Survey> implements Survey
 		hql="delete from Survey s where s.id= ?";
 		surveyDao.batchEntityByHQL(hql, sid);
 	}
+
+
+	@Override
+	public Question getQuestion(Integer qId) {
+		return questionDao.getEntity(qId);
+	}
 	
 }
