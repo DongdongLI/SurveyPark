@@ -63,7 +63,7 @@
 															<s:a namespace="/" action="page_editPage?sid=%{#sid}&pId=%{#pId}">Modify Page Title</s:a>&nbsp;
 															<s:a namespace="/" action="">Copy or Move Page</s:a>&nbsp;
 															<s:a namespace="/" action="question_toSelection?sid=%{#sid}&pId=%{#pId}">Add Question</s:a>&nbsp;
-															<s:a namespace="/" action="">Delete Page</s:a>&nbsp;
+															<s:a namespace="/" action="page_deletePage?sid=%{#sid}&pId=%{#pId}">Delete Page</s:a>&nbsp;
 														</td>
 													</tr>
 												</table>
@@ -81,13 +81,14 @@
 																		<table>
 																			<!-- problem set -->
 																			<s:iterator var="q" value="#p.questions">
+<%-- 																			<s:property value="#p.questions.size"/> --%>
 																			<s:set var="qId" value="#q.id" />
 																			<tr>
 																				<!-- the question -->
 																				<td class="tdQHeaderL"><s:property value="#q.title" /></td>
 																				<td class="tdQHeaderR">
 																					<s:a namespace="/" action="">Modify Question</s:a>&nbsp;
-																					<s:a namespace="/" action="">Delete Question</s:a>&nbsp;
+																					<s:a namespace="/" action="question_deleteQuestion?qId=%{#qId}&sid=%{#sid}">Delete Question</s:a>&nbsp;
 																				</td>
 																			</tr>
 																			<tr>

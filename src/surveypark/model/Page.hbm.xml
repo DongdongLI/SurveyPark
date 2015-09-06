@@ -19,7 +19,7 @@
         </many-to-one>
         <!-- avoid the lazy initialization exception -->
         <set name="questions" inverse="true" order-by="id">
-        	<key column="surveyid"></key>
+        	<key column="pageid"></key>
         	<one-to-many class="surveypark.model.Question"/>
         </set>
     </class>

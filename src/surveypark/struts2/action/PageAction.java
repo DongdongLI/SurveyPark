@@ -78,4 +78,9 @@ public class PageAction extends BaseAction<Page>{
 		valueStack.push(page);
 		return "editPage";
 	}
+	
+	public String deletePage(){
+		surveyService.deletePage(pId);
+		return "designSurveyAction";
+	}
 }

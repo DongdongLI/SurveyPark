@@ -16,6 +16,9 @@ public class QuestionAction extends BaseAction<Question>{
 	
 	private Integer sid;
 	private Integer pId;
+	
+	private Integer qId;
+	
 	@Resource
 	private SurveyService surveyService;
 	public Integer getSid() {
@@ -42,6 +45,15 @@ public class QuestionAction extends BaseAction<Question>{
 		this.question = question;
 	}
 
+	
+	
+	public Integer getQId() {
+		return qId;
+	}
+
+	public void setQId(Integer qId) {
+		this.qId = qId;
+	}
 
 	@Override
 	public Question getModel() {
@@ -62,22 +74,31 @@ public class QuestionAction extends BaseAction<Question>{
 	
 	public String saveOrUpdateQuestion(){
 		// sid, pId, model
-		//System.out.println("save OR UPDATE ques: pid"+pId+" sid: "+sid); // get it
+		System.out.println("save OR UPDATE ques: pid"+pId+" sid: "+sid); // get it
 		Survey survey=new Survey();
 		survey.setId(sid);
-		Page page=new Page();
+		Page page=new Page(); 
 		page.setId(pId);
 		
 		//System.out.println("save or update question: :"+getModel());
+		System.out.println("size: "+page.getQuestions().size());
 		page.getQuestions().add(getModel());
-		
+		System.out.println("size: "+page.getQuestions().size());
 		getModel().setPage(page);
 		getModel().setSurvey(survey);
-		System.out.println("***save or update**** ");
-		System.out.println("survey "+getModel().getSurvey().getId());
-		System.out.println("page "+getModel().getPage().getId());
-		System.out.println("*********************");
+//		System.out.println("***save or update**** ");
+//		System.out.println("survey "+getModel().getSurvey().getId());
+//		System.out.println("page "+getModel().getPage().getId());
+//		System.out.println("*********************");
 		surveyService.saveOrUpdateQuestion(getModel());
 		return "designSurveyAction";
 	}
+	
+	public String deleteQuestion(){
+		// sid, qid
+		surveyService.deleteQuestion(qId);
+		return "designSurveyAction";
+	}
+	
+	
 }

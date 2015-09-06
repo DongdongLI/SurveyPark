@@ -136,6 +136,11 @@ public class SurveyAction extends BaseAction<Survey> implements UserAware,Sessio
 		valueStack.push(survey);
 		return "designSurveyAction";
 	}
+	
+	public String deleteSurvey(){
+		surveyService.deleteSurvey(sid);
+		return "mySurveysAction";
+	}
 }
 /*
  * public String designSurvey(){

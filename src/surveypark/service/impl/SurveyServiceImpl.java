@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import surveypark.dao.BaseDao;
+import surveypark.dao.impl.AnswerDaoImpl;
 import surveypark.dao.impl.PageDaoImpl;
 import surveypark.dao.impl.QuestionDaoImpl;
 import surveypark.dao.impl.SurveyDaoImpl;
@@ -31,7 +32,8 @@ public class SurveyServiceImpl extends BaseServiceImpl<Survey> implements Survey
 	}
 	@Resource(name="questionDao")
 	private QuestionDaoImpl questionDao;
-
+	@Resource(name="answerDao")
+	private AnswerDaoImpl answerDao;
 	@Override
 	public List<Survey> findSurveys(User user) {
 		String hql="from Survey s where s.user.id= ?";
@@ -86,4 +88,44 @@ public class SurveyServiceImpl extends BaseServiceImpl<Survey> implements Survey
 		questionDao.saveOrUpdateEntity(question);
 	}
 
+	// delete the answers while deleting the question
+	@Override
+	public void deleteQuestion(Integer qId) {
+		String hql="delete from Answer a where a.questionId=?";
+		answerDao.batchEntityByHQL(hql, qId);
+		hql="delete from Question q where q.id=?";
+		questionDao.batchEntityByHQL(hql, qId);
+	}
+
+
+	@Override
+	public void deletePage(Integer pid) {
+		// delete answers
+		String hql="delete from Answer a where a.questionId in (select q.id from Question q where q.page.id= ?)";
+		answerDao.batchEntityByHQL(hql, pid);
+		// delete questions
+		hql="delete from Question q where q.page.id= ?";
+		questionDao.batchEntityByHQL(hql, pid);
+		// delete pages
+		hql="delete from Page p where p.id= ?";
+		pageDao.batchEntityByHQL(hql, pid);
+	}
+
+	// during delete, Hibernate do not allow allow 2 level or more connection
+	@Override
+	public void deleteSurvey(Integer sid) {
+		// delete answer
+		String hql="delete from Answer a where a.surveyId= ?";
+		answerDao.batchEntityByHQL(hql, sid);
+		// delete question
+		hql="delete from Question q where q.survey.id= ?";
+		questionDao.batchEntityByHQL(hql, sid);
+		// delete page
+		hql="delete from Page p where p.survey.id= ?";
+		pageDao.batchEntityByHQL(hql, sid);
+		// delete survey
+		hql="delete from Survey s where s.id= ?";
+		surveyDao.batchEntityByHQL(hql, sid);
+	}
+	
 }

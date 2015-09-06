@@ -46,7 +46,10 @@
 			<result name="newSurvey">/designSurvey.jsp</result>
 			<result name="designSurvey">/designSurvey.jsp</result>
 			<result name="editSurvey">/editSurvey.jsp</result>
-			
+			<result name="mySurveysAction" type="redirectAction">
+				<param name="namespace">/</param>
+				<param name="actionName">survey_mySurveys</param>
+			</result>
 		</action>
 		
 		<action name="page_*" class="surveypark.struts2.action.PageAction" method="{1}">
@@ -68,7 +71,8 @@
 			<result name="7">/matrixNormalQuestionDesign.jsp</result>
 			<result name="8">/matrixSelectQuestionDesign.jsp</result>
 			
-			<result name="saveOrUpdate">/?</result>	
+			<result name="saveOrUpdate">/?</result>
+			
 		</action>
 	</package>
 </struts>

@@ -55,7 +55,7 @@
 						<td><s:a action="" namespace="/" cssClass="aList">Analysis</s:a></td>
 						<td><s:a action="" namespace="/" cssClass="aList">Open/Close</s:a></td>
 						<td><s:a action="" namespace="/" cssClass="aList">Clean up</s:a></td>
-						<td><s:a action="" namespace="/" cssClass="aList">Delete</s:a></td>
+						<td><s:a action="survey_deleteSurvey?sid=%{#sid}" namespace="/" cssClass="aList">Delete</s:a></td>
 					</tr>
 				</s:iterator>
 			</table>
