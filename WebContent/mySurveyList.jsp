@@ -53,8 +53,8 @@
 						<td><s:a action="survey_designSurvey?sid=%{#sid}" namespace="/" cssClass="aList">Design</s:a></td><!-- ?sid=%{#sid} -->
 						<td><s:a action="" namespace="/" cssClass="aList">Information Collection</s:a></td>
 						<td><s:a action="" namespace="/" cssClass="aList">Analysis</s:a></td>
-						<td><s:a action="" namespace="/" cssClass="aList">Open/Close</s:a></td>
-						<td><s:a action="" namespace="/" cssClass="aList">Clean up</s:a></td>
+						<td><s:a action="survey_toggleStatus?sid=%{#sid}" namespace="/" cssClass="aList">Open/Close</s:a></td>
+						<td><s:a action="survey_clearAnswers?sid=%{#sid}" namespace="/" cssClass="aList">Clean up</s:a></td>
 						<td><s:a action="survey_deleteSurvey?sid=%{#sid}" namespace="/" cssClass="aList">Delete</s:a></td>
 					</tr>
 				</s:iterator>

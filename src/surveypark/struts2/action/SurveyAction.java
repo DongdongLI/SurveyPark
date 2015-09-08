@@ -1,11 +1,14 @@
 package surveypark.struts2.action;
 
+import java.io.File;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.ServletContext;
 
 import org.apache.struts2.interceptor.SessionAware;
+import org.apache.struts2.util.ServletContextAware;
 import org.springframework.context.annotation.Scope;
 import org.springframework.orm.hibernate3.support.OpenSessionInViewFilter;
 import org.springframework.stereotype.Controller;
@@ -19,10 +22,11 @@ import surveypark.model.Survey;
 import surveypark.model.User;
 import surveypark.service.SurveyService;
 import surveypark.struts2.UserAware;
+import surveypark.util.ValidatorUtil;
 
 @Controller
 @Scope("prototype")
-public class SurveyAction extends BaseAction<Survey> implements UserAware,SessionAware{
+public class SurveyAction extends BaseAction<Survey> implements UserAware,SessionAware,ServletContextAware{
 
 	private User user;
 	
@@ -74,6 +78,7 @@ public class SurveyAction extends BaseAction<Survey> implements UserAware,Sessio
 	
 	public String newSurvey(){
 		this.survey=surveyService.newSurvey(user);
+		sid=survey.getId();// without it there will be no sid updated
 		return "newSurvey";
 	}
 
@@ -140,6 +145,59 @@ public class SurveyAction extends BaseAction<Survey> implements UserAware,Sessio
 	public String deleteSurvey(){
 		surveyService.deleteSurvey(sid);
 		return "mySurveysAction";
+	}
+	
+	public String clearAnswers(){
+		// sid
+		surveyService.clearAnswers(sid);
+		return "mySurveysAction";
+	}
+	
+	public String toggleStatus(){
+		surveyService.toggleStatue(sid);
+		return "mySurveysAction";
+	}
+	
+	public String toAddLogoPage(){
+		return "addLogoPage";
+	}
+	// for logo upload
+	private File logoPhotoFile;
+	private String logoPhotoFileName;
+	
+	public File getLogoPhotoFile() {
+		return logoPhotoFile;
+	}
+
+	public void setLogoPhotoFile(File logoPhotoFile) {
+		this.logoPhotoFile = logoPhotoFile;
+	}
+
+	public String getLogoPhotoFileName() {
+		return logoPhotoFileName;
+	}
+
+	public void setLogoPhotoFileName(String logoPhotoFileName) {
+		this.logoPhotoFileName = logoPhotoFileName;
+	}
+
+	public String doAddLogo(){
+		if(ValidatorUtil.isValid(logoPhotoFileName)){
+			// get the real path of "upload" folder
+			String dir=servletContext.getRealPath("/upload");
+			// file extension
+			String ext=logoPhotoFileName.substring(logoPhotoFileName.lastIndexOf("."));
+			// new file name
+			long l=System.nanoTime();
+			File newFile=new File(dir,"/upload"+l+ext);
+		}
+		return "designSurveyAction";
+	}
+
+	private ServletContext servletContext;
+	public void setServletContext(ServletContext arg0) {
+		Has
+		servletContext=arg0;
 	}
 }
 /*

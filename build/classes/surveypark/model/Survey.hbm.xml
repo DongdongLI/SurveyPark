@@ -23,6 +23,12 @@
         <property name="createTime" type="java.util.Date">
             <column name="CREATETIME" />
         </property>
+        <property name="closed" type="java.lang.Boolean" update="false"><!-- prevent being modified by default value -->
+        	<column name="CLOSED"></column><!-- but accept the normal hql -->
+        </property>
+        <property name="logoPhotoPath" type="java.lang.String">
+        	<column name="LOGOPATH"/>
+        </property>
         <many-to-one name="user" class="surveypark.model.User">
             <column name="userid" />
         </many-to-one>

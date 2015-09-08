@@ -20,4 +20,6 @@ public interface SurveyService extends BaseService<Survey>  {
 	public void deletePage(Integer pid);
 	public void deleteSurvey(Integer sid);
 	public Question getQuestion(Integer qId);
+	public void clearAnswers(Integer sid);
+	public void toggleStatue(Integer sid);
 }

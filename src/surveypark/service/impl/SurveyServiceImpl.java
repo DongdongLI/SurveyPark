@@ -133,5 +133,22 @@ public class SurveyServiceImpl extends BaseServiceImpl<Survey> implements Survey
 	public Question getQuestion(Integer qId) {
 		return questionDao.getEntity(qId);
 	}
+
+
+	@Override
+	public void clearAnswers(Integer sid) {
+		String hql="delete from Answer a where a.surveyId= ?";
+		answerDao.batchEntityByHQL(hql, sid);
+	}
+
+
+	@Override
+	public void toggleStatue(Integer sid) {
+		Survey survey=getSurvey(sid);
+		if(survey.getClosed()==null)
+			survey.setClosed(true);
+		String hql="update Survey s set s.closed= ? where s.id= ?";
+		surveyDao.batchEntityByHQL(hql,!survey.getClosed(), sid);
+	}
 	
 }

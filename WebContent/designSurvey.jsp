@@ -37,7 +37,7 @@
 						<s:property value="titleTxt" />
 					</td>
 					<td class="tdSHeaderR">
-						<s:a namespace="/" action="SurveyAction_toAddLogoPage?sid=%{#sId}">Add Logo</s:a>&nbsp;<!-- sid or sId -->
+						<s:a namespace="/" action="survey_addLogoPage?sid=%{#sId}">Add Logo</s:a>&nbsp;<!-- sid or sId -->
 						<s:a action="survey_editSurvey?sid=%{#sid}" namespace="/">Modify Survey</s:a>&nbsp;
 						<s:a namespace="/" action="page_addPage?sid=%{#sid}">Add Page</s:a>&nbsp;
 					</td>

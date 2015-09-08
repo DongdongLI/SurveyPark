@@ -14,6 +14,8 @@ public class Survey {
 	private Date createTime=new Date();
 	private Set<Page> pages=new HashSet<>();
 	private User user;
+	private Boolean closed;// if the survey is opened
+	private String logoPhotoPath;
 	
 	public User getUser() {
 		return user;
@@ -62,6 +64,18 @@ public class Survey {
 	}
 	public void setPages(Set<Page> pages) {
 		this.pages = pages;
+	}
+	public Boolean getClosed() {
+		return closed;
+	}
+	public void setClosed(Boolean closed) {
+		this.closed = closed;
+	}
+	public String getLogoPhotoPath() {
+		return logoPhotoPath;
+	}
+	public void setLogoPhotoPath(String logoPhotoPath) {
+		this.logoPhotoPath = logoPhotoPath;
 	}
 	
 	
