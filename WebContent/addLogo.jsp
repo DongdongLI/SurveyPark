@@ -17,7 +17,7 @@
 					<table>
 						<tr>
 							<td>
-								<s:form action="SurveyAction_doAddLogo" method="post" enctype="multipart/form-data">
+								<s:form action="survey_doAddLogo" method="post" enctype="multipart/form-data">
 								<s:hidden name="sid" />
 								<table>
 									<tr>

@@ -162,15 +162,15 @@ public class SurveyAction extends BaseAction<Survey> implements UserAware,Sessio
 		return "addLogoPage";
 	}
 	// for logo upload
-	private File logoPhotoFile;
+	private File logoPhoto;
 	private String logoPhotoFileName;
 	
-	public File getLogoPhotoFile() {
-		return logoPhotoFile;
+	public File getLogoPhoto() {
+		return logoPhoto;
 	}
 
-	public void setLogoPhotoFile(File logoPhotoFile) {
-		this.logoPhotoFile = logoPhotoFile;
+	public void setLogoPhoto(File logoPhoto) {
+		this.logoPhoto = logoPhoto;
 	}
 
 	public String getLogoPhotoFileName() {
@@ -185,19 +185,36 @@ public class SurveyAction extends BaseAction<Survey> implements UserAware,Sessio
 		if(ValidatorUtil.isValid(logoPhotoFileName)){
 			// get the real path of "upload" folder
 			String dir=servletContext.getRealPath("/upload");
+			System.out.println("abspath for upload: "+dir);
 			// file extension
 			String ext=logoPhotoFileName.substring(logoPhotoFileName.lastIndexOf("."));
 			// new file name
 			long l=System.nanoTime();
-			File newFile=new File(dir,"/upload"+l+ext);
+			File newFile=new File(dir,l+ext);
+			
+			logoPhoto.renameTo(newFile);
+			surveyService.updateLogoPhotoPath(sid,"/upload/"+l+ext);
+			System.out.println("absolute path: "+logoPhoto.getAbsolutePath());
+			System.out.println("object path: "+survey.getLogoPhotoPath());
 		}
 		return "designSurveyAction";
 	}
 
 	private ServletContext servletContext;
 	public void setServletContext(ServletContext arg0) {
-		Has
+		
 		servletContext=arg0;
+	}
+	
+	public boolean photoExists(){
+		String path=getModel().getLogoPhotoPath();
+		if(ValidatorUtil.isValid(path)){
+			String absPath=servletContext.getRealPath(path);
+			System.out.println("in photoExist: "+absPath);
+			File file=new File(absPath);
+			return file.exists();
+		}
+		return false;
 	}
 }
 /*

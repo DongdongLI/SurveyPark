@@ -150,5 +150,12 @@ public class SurveyServiceImpl extends BaseServiceImpl<Survey> implements Survey
 		String hql="update Survey s set s.closed= ? where s.id= ?";
 		surveyDao.batchEntityByHQL(hql,!survey.getClosed(), sid);
 	}
+
+
+	@Override
+	public void updateLogoPhotoPath(Integer sid, String string) {
+		String hql="update Survey s set s.logoPhotoPath = ? where s.id= ? ";
+		surveyDao.batchEntityByHQL(hql, string,sid);
+	}
 	
 }

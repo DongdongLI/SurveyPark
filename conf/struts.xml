@@ -51,6 +51,7 @@
 				<param name="actionName">survey_mySurveys</param>
 			</result>
 			<result name="addLogoPage">/addLogo.jsp</result>
+			
 		</action>
 		
 		<action name="page_*" class="surveypark.struts2.action.PageAction" method="{1}">

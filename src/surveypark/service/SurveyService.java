@@ -22,4 +22,5 @@ public interface SurveyService extends BaseService<Survey>  {
 	public Question getQuestion(Integer qId);
 	public void clearAnswers(Integer sid);
 	public void toggleStatue(Integer sid);
+	public void updateLogoPhotoPath(Integer sid, String string);
 }
