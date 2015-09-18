@@ -32,7 +32,8 @@
         <many-to-one name="user" class="surveypark.model.User">
             <column name="userid" />
         </many-to-one>
-        <set name="pages" inverse="true" order-by="id">
+        <!-- going to sort according to the pageNumber -->
+        <set name="pages" inverse="true" order-by="orderNo"> <!-- order-by="id" -->
         	<key column="surveyid"></key>
         	<one-to-many class="surveypark.model.Page"/>
         </set>

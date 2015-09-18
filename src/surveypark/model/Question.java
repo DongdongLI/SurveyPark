@@ -5,7 +5,7 @@ import java.util.Arrays;
 import surveypark.util.StringUtil;
 import surveypark.util.ValidatorUtil;
 
-public class Question {
+public class Question extends BaseEntity{
 	
 	private static final String RN= "\r\n";
 	private Integer id;

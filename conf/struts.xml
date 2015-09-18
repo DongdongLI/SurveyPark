@@ -14,7 +14,15 @@
 			<!-- Interceptor stack -->
 			<interceptor-stack name="surveyparkStack">
 				<interceptor-ref name="LoginInterceptor"></interceptor-ref>
-				<interceptor-ref name="defaultStack"></interceptor-ref>
+				<interceptor-ref name="defaultStack">
+					<param name="modelDriven.refreshModelBeforeResult">true</param>
+					<!-- size -->
+					<param name="fileUpload.maximumSize">60000</param>
+					<!-- extension -->
+					<param name="fileUpload.allowedExtensions">.jpg,.jpeg,.png,.bmp,.gif</param>
+					<!-- file type -->
+					<param name="fileUpload.allowedTypes">image/jpg,image/jpeg,image/pjpeg,image/png,image/gif,image/bmp</param>		
+				</interceptor-ref>
 			</interceptor-stack>
 		</interceptors>
 	
@@ -42,6 +50,7 @@
 		</action>
 		
 		<action name="survey_*" class="surveypark.struts2.action.SurveyAction" method="{1}">
+			<result name="input">${inputPage}</result>
 			<result name="mySurveys">/mySurveyList.jsp</result>
 			<result name="newSurvey">/designSurvey.jsp</result>
 			<result name="designSurvey">/designSurvey.jsp</result>
@@ -52,6 +61,10 @@
 			</result>
 			<result name="addLogoPage">/addLogo.jsp</result>
 			
+		</action>
+		
+		<action name="moveOrCopyPageAction_*" class="surveypark.struts2.action.MoveOrCopyPageAction" method="{1}">
+			<result name="toSelectTargetPage">/moveOrCopyPageList.jsp</result>
 		</action>
 		
 		<action name="page_*" class="surveypark.struts2.action.PageAction" method="{1}">

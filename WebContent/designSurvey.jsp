@@ -61,7 +61,7 @@
 														<td class="tdPHeaderL"><s:property value="#p.title" /></td>
 														<td class="tdPHeaderR">
 															<s:a namespace="/" action="page_editPage?sid=%{#sid}&pId=%{#pId}">Modify Page Title</s:a>&nbsp;
-															<s:a namespace="/" action="">Copy or Move Page</s:a>&nbsp;
+															<s:a namespace="/" action="moveOrCopyPageAction_toSelectTargetPage?srcPid=%{#pId}">Copy or Move Page</s:a>&nbsp;
 															<s:a namespace="/" action="question_toSelection?sid=%{#sid}&pId=%{#pId}">Add Question</s:a>&nbsp;
 															<s:a namespace="/" action="page_deletePage?sid=%{#sid}&pId=%{#pId}">Delete Page</s:a>&nbsp;
 														</td>

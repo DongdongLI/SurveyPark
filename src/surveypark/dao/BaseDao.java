@@ -15,4 +15,6 @@ public interface BaseDao<T> {
 	public T loadEntity(Integer id);
 	public T getEntity(Integer id);
 	public List<T> findEntitiesByHQL(String hql, Object...objects);
+	// need to make sure the result exists and there is only one
+	public Object uniqueResult(String hql, Object...objects);
 }

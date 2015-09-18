@@ -16,6 +16,7 @@ import surveypark.model.Question;
 import surveypark.model.Survey;
 import surveypark.model.User;
 import surveypark.service.SurveyService;
+import surveypark.util.DataUtil;
 
 @Service("surveyService")
 public class SurveyServiceImpl extends BaseServiceImpl<Survey> implements SurveyService{
@@ -156,6 +157,108 @@ public class SurveyServiceImpl extends BaseServiceImpl<Survey> implements Survey
 	public void updateLogoPhotoPath(Integer sid, String string) {
 		String hql="update Survey s set s.logoPhotoPath = ? where s.id= ? ";
 		surveyDao.batchEntityByHQL(hql, string,sid);
+	}
+
+
+	@Override
+	public List<Survey> getSurveyWithPages(User user) {
+		String hql="from Survey s where s.user.id= ?";
+		List<Survey> list=surveyDao.findEntitiesByHQL(hql, new Object[]{user.getId()});
+		for(Survey s:list){
+			s.getPages().size();
+		}
+		return list;
+	}
+
+
+	@Override
+	public void moveOrCopyPage(Integer srcPid, Integer targPid, Integer pos) {
+		// determine if it is copy or move (compare if it within the same survey)
+		// use source Pid to get source page and then get the source survey
+		// use target Pid to get target page and target survey
+		// compare the source survey and target survey
+		Page srcPage=this.getPage(srcPid);
+		Survey srcSurvey=srcPage.getSurvey();
+		
+		//System.out.println("srcPage: "+srcPage); // page get successfully
+		
+		Page tarPage=this.getPage(targPid);
+		Survey tarSurvey=tarPage.getSurvey();
+		
+		//System.out.println("targPage: "+tarPage); // page get successfully
+		
+		if(srcSurvey.getId().equals(tarSurvey.getId())){// it is moving
+			setOrderNo(srcPage,tarPage,pos);
+		}else{
+			srcPage.getQuestions().size();
+			
+			Page copyPage=(Page)DataUtil.deeplyCopy(srcPage);
+			copyPage.setSurvey(tarSurvey);
+			pageDao.saveEntity(copyPage);
+			for(Question q:copyPage.getQuestions()){
+				questionDao.saveEntity(q);
+			}
+			setOrderNo(copyPage,tarPage,pos);
+		}
+		
+	}
+
+
+	private void setOrderNo(Page srcPage, Page tarPage, Integer pos) {
+		// before
+		if(pos==0){
+			// determine if the target page is the first page
+			if(isFirstPage(tarPage)){
+				srcPage.setOrderNo(tarPage.getOrderNo()-0.01f);
+			}else{
+				Page prePage=getPrePage(tarPage);
+				srcPage.setOrderNo((tarPage.getOrderNo()+prePage.getOrderNo())/2);
+			}
+		}else{
+			// determine if the target page is the last page
+			//System.out.println("srcPage:"+srcPage); // this guy is missing
+			//System.out.println("targPage:"+tarPage); // survive
+			if(isLastPage(tarPage)){
+				srcPage.setOrderNo(tarPage.getOrderNo()+0.01f);
+			}else{
+				Page nextPage=getNextPage(tarPage);
+				srcPage.setOrderNo((tarPage.getOrderNo()+nextPage.getOrderNo())/2);
+			}
+		}
+		// after
+	}
+
+
+	private Page getNextPage(Page page) {
+		String hql="from Page p where p.survey.id=? and p.orderNo > ? order by p.orderNo asc";
+		List<Page> prevPages=pageDao.findEntitiesByHQL(hql, new Object[]{page.getSurvey().getId(),page.getOrderNo()});
+		return prevPages.get(0);
+	}
+
+
+	private boolean isLastPage(Page page) {
+		String hql= "select count(*) from Page p where p.survey.id= ? and p.orderNo> ?";
+		Long count=(Long)pageDao.uniqueResult(hql,page.getSurvey().getId(),page.getOrderNo());
+		if(count==0)
+			return true;
+		return false;
+	}
+
+	// get the previous page in the same survey
+	private Page getPrePage(Page page) {
+		String hql="from Page p where p.survey.id=? and p.orderNo < ? order by p.orderNo desc";
+		List<Page> prevPages=pageDao.findEntitiesByHQL(hql, new Object[]{page.getSurvey().getId(),page.getOrderNo()});
+		return prevPages.get(0);
+	}
+
+
+	private boolean isFirstPage(Page page) {
+		// determine if a page is the first page of its survey
+		String hql= "select count(*) from Page p where p.survey.id= ? and p.orderNo< ?";
+		Long count=(Long)pageDao.uniqueResult(hql,page.getSurvey().getId(),page.getOrderNo());
+		if(count==0)
+			return true;
+		return false;
 	}
 	
 }

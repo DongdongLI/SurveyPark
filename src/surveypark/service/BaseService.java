@@ -15,4 +15,6 @@ public interface BaseService<T> {
 		public T loadEntity(Integer id);
 		public T getEntity(Integer id);
 		public List<T> findEntitiesByHQL(String hql, Object...objects);
+		// single result query
+		public Object uniqueResult(String hql, Object...objects);
 }

@@ -11,6 +11,9 @@
         <property name="title" type="java.lang.String">
             <column name="TITLE" />
         </property>
+        <property name="orderNo" type="float">
+        	<column name="ORDERNO" sql-type="decimal(10,5)"></column>
+        </property>
         <property name="description" type="java.lang.String">
             <column name="DES" />
         </property>

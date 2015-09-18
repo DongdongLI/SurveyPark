@@ -53,6 +53,50 @@ public class SurveyAction extends BaseAction<Survey> implements UserAware,Sessio
 		System.out.println("get sid: "+sid);
 		this.sid = sid;
 	}
+	// the original and target page id
+	private Integer srcPid;
+	private Integer targPid;
+	// 0 means before, 1 means after
+	private Integer pos;
+	
+	
+	
+	public Integer getSrcPid() {
+		return srcPid;
+	}
+
+	public void setSrcPid(Integer srcPid) {
+		this.srcPid = srcPid;
+	}
+
+	
+
+	public Integer getTargPid() {
+		return targPid;
+	}
+
+	public void setTargPid(Integer targPid) {
+		this.targPid = targPid;
+	}
+
+	public Integer getPos() {
+		return pos;
+	}
+
+	public void setPos(Integer pos) {
+		this.pos = pos;
+	}
+
+	// error page redirect
+	private String inputPage;
+	
+	public String getInputPage() {
+		return inputPage;
+	}
+
+	public void setInputPage(String inputPage) {
+		this.inputPage = inputPage;
+	}
 
 	@Resource
 	private SurveyService surveyService;
@@ -129,8 +173,13 @@ public class SurveyAction extends BaseAction<Survey> implements UserAware,Sessio
 		valueStack.push(survey);
 		return "editSurvey";
 	}
+	// only get called before updateSurvey method
+	public void prepareUpdateSurvey(){
+		setInputPage("/editSurvey.jsp");
+	}
 	
 	public String updateSurvey(){
+		
 		//System.out.println("in update"+this.getModel());
 		//this.user=getModel().getUser();//make sure the userid is not null
 		//System.out.println("updateSurvey: user: "+this.user);
@@ -180,8 +229,13 @@ public class SurveyAction extends BaseAction<Survey> implements UserAware,Sessio
 	public void setLogoPhotoFileName(String logoPhotoFileName) {
 		this.logoPhotoFileName = logoPhotoFileName;
 	}
-
+	// only get called before doAddLogo method
+	public void prepareDoAddLogo(){
+		setInputPage("/addLogo.jsp");
+	}
+	
 	public String doAddLogo(){
+		setInputPage("/addLogo.jsp");
 		if(ValidatorUtil.isValid(logoPhotoFileName)){
 			// get the real path of "upload" folder
 			String dir=servletContext.getRealPath("/upload");
@@ -215,6 +269,11 @@ public class SurveyAction extends BaseAction<Survey> implements UserAware,Sessio
 			return file.exists();
 		}
 		return false;
+	}
+	
+	public String doMoveOrCopy(){
+		surveyService.moveOrCopyPage(srcPid, targPid, pos);
+		return "designSurveyAction";
 	}
 }
 /*
