@@ -260,5 +260,24 @@ public class SurveyServiceImpl extends BaseServiceImpl<Survey> implements Survey
 			return true;
 		return false;
 	}
+
+
+	@Override
+	public List<Survey> findAllAvailableSurveys() {
+		String hql="from Survey s where s.closed= ?";
+		return surveyDao.findEntitiesByHQL(hql, new Object[]{false});
+	}
+
+
+	@Override
+	public Page getFirstPage(Integer sid) {
+		String hql="from Page p where p.survey.id= ? order by p.orderNo asc";
+		List<Page> list=pageDao.findEntitiesByHQL(hql, new Object[]{sid});
+		Page page=list.get(0);
+		page.getQuestions().size();
+		// need to get the survey as well
+		page.getSurvey().getTitleTxt();
+		return page;
+	}
 	
 }

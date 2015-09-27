@@ -12,7 +12,7 @@
 		<s:a action="login_toPage" namespace="/">[Home]</s:a>&nbsp;
 		<s:a action="survey_newSurvey" namespace="/">[New Survey]</s:a>&nbsp;
 		<s:a action="survey_mySurveys" namespace="/">[My Survey]</s:a>&nbsp;
-		<s:a action="EngageSurveyAction_findAllAvailableSurveys" namespace="/">[Take a Survey]</s:a>&nbsp;
+		<s:a action="engageSurvey_findAllAvailableSurveys" namespace="/">[Take a Survey]</s:a>&nbsp;
 		<s:a action="reg_toPage" namespace="/">[Sign Up]</s:a>&nbsp;
 		<s:a namespace="/" action="UserAuthorizeAction_findAllUsers">[User Management]</s:a>&nbsp;
 		<s:a namespace="/" action="RoleAction_findAllRoles">[Role Management]</s:a>&nbsp;

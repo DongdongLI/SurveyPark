@@ -25,4 +25,6 @@ public interface SurveyService extends BaseService<Survey>  {
 	public void updateLogoPhotoPath(Integer sid, String string);
 	public List<Survey> getSurveyWithPages(User user);
 	public void moveOrCopyPage(Integer srcPid, Integer targPid, Integer pos);
+	public List<Survey> findAllAvailableSurveys();
+	public Page getFirstPage(Integer sid);
 }

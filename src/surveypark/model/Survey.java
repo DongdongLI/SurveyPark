@@ -11,12 +11,28 @@ public class Survey {
 	private String prevTxt="Previous Page";
 	private String nextTxt="Next Page";
 	private String exitTxt="Exit";
+	private String doneTxt="Done";
 	private Date createTime=new Date();
 	private Set<Page> pages=new HashSet<>();
 	private User user;
 	private Boolean closed;// if the survey is opened
 	private String logoPhotoPath;
 	
+	private Float minOrderNo;// the max orderNo in this survey
+	private Float maxOrderNo;
+	
+	public Float getMinOrderNo() {
+		return minOrderNo;
+	}
+	public void setMinOrderNo(Float minOrderNo) {
+		this.minOrderNo = minOrderNo;
+	}
+	public Float getMaxOrderNo() {
+		return maxOrderNo;
+	}
+	public void setMaxOrderNo(Float maxOrderNo) {
+		this.maxOrderNo = maxOrderNo;
+	}
 	public User getUser() {
 		return user;
 	}
@@ -76,6 +92,12 @@ public class Survey {
 	}
 	public void setLogoPhotoPath(String logoPhotoPath) {
 		this.logoPhotoPath = logoPhotoPath;
+	}
+	public String getDoneTxt() {
+		return doneTxt;
+	}
+	public void setDoneTxt(String doneTxt) {
+		this.doneTxt = doneTxt;
 	}
 	
 	

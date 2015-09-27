@@ -20,6 +20,9 @@
         <property name="exitTxt" type="java.lang.String">
             <column name="EXITTXT" />
         </property>
+        <property name="doneTxt" type="java.lang.String">
+        	<column name="DONETXT"></column>
+        </property>
         <property name="createTime" type="java.util.Date">
             <column name="CREATETIME" />
         </property>
@@ -29,6 +32,10 @@
         <property name="logoPhotoPath" type="java.lang.String">
         	<column name="LOGOPATH"/>
         </property>
+        
+        <property name="minOrderNo" formula="(select min(p.orderNo) from page p where p.surveyid = id)"/>
+        <property name="maxOrderNo" formula="(select max(p.orderNo) from page p where p.surveyid = id)"/>
+        
         <many-to-one name="user" class="surveypark.model.User">
             <column name="userid" />
         </many-to-one>
