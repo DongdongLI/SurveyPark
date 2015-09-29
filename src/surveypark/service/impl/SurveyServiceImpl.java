@@ -1,6 +1,8 @@
 package surveypark.service.impl;
 
+import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 import javax.annotation.Resource;
 
@@ -11,6 +13,7 @@ import surveypark.dao.impl.AnswerDaoImpl;
 import surveypark.dao.impl.PageDaoImpl;
 import surveypark.dao.impl.QuestionDaoImpl;
 import surveypark.dao.impl.SurveyDaoImpl;
+import surveypark.model.Answer;
 import surveypark.model.Page;
 import surveypark.model.Question;
 import surveypark.model.Survey;
@@ -278,6 +281,38 @@ public class SurveyServiceImpl extends BaseServiceImpl<Survey> implements Survey
 		// need to get the survey as well
 		page.getSurvey().getTitleTxt();
 		return page;
+	}
+
+
+	@Override
+	public Page getPrePage(Integer curPid) {
+		Page p=this.getPage(curPid);
+		p=this.getPrePage(p);
+		p.getQuestions().size();
+		
+		return p;
+	}
+
+
+	@Override
+	public Page getNextPage(Integer curPid) {
+		Page p=this.getPage(curPid);
+		p=this.getNextPage(p);
+		p.getQuestions().size();
+		
+		return p;
+	}
+
+	// save the answers into db
+	@Override
+	public void saveAnswer(List<Answer> answers) {
+		Date date=new Date();
+		String uuid=UUID.randomUUID().toString();
+		for(Answer answer:answers){
+			answer.setUuid(uuid);
+			answer.setAnswerTime(date);
+			answerDao.saveEntity(answer);
+		}
 	}
 	
 }

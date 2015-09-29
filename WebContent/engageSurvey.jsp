@@ -8,8 +8,8 @@
 	</head>
 	<body>
 		<s:include value="/header.jsp" />
-		<s:form action="" method="post" >
-			<s:hidden name="currPid" value="%{currPage.id}" />
+		<s:form action="engageSurvey_doEngageSurvey" method="post" >
+			<s:hidden name="curPid" value="%{curPage.id}" />
 			<table>
 				<tr>
 					<td colspan="2" class="tdWhiteLine"></td>
@@ -162,7 +162,7 @@
 							<input type="submit" name='submit_next' value='<s:property value="#session.current_survey.nextTxt"/>' class="btn">
 						</s:if>
 						<!-- build "finish" button -->
-						<s:if test="currPage.orderNo == #session.current_survey.maxOrderNo">
+						<s:if test="curPage.orderNo == #session.current_survey.maxOrderNo">
 							<input type="submit" name="submit_done" value='<s:property value="#session.current_survey.doneTxt"/>' class="btn">
 						</s:if>
 						<input type="submit" name="submit_exit" value='<s:property value="#session.current_survey.exitTxt"/>' class="btn">

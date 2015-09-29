@@ -2,6 +2,7 @@ package surveypark.service;
 
 import java.util.List;
 
+import surveypark.model.Answer;
 import surveypark.model.Page;
 import surveypark.model.Question;
 import surveypark.model.Survey;
@@ -27,4 +28,7 @@ public interface SurveyService extends BaseService<Survey>  {
 	public void moveOrCopyPage(Integer srcPid, Integer targPid, Integer pos);
 	public List<Survey> findAllAvailableSurveys();
 	public Page getFirstPage(Integer sid);
+	public Page getPrePage(Integer curPid);
+	public Page getNextPage(Integer curPid);
+	public void saveAnswer(List<Answer> answers);
 }
