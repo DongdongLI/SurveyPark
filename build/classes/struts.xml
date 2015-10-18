@@ -60,6 +60,7 @@
 				<param name="actionName">survey_mySurveys</param>
 			</result>
 			<result name="addLogoPage">/addLogo.jsp</result>
+			<result name="analyzeSurveyListPage">/analyzeSurveyList.jsp</result>
 			
 		</action>
 		

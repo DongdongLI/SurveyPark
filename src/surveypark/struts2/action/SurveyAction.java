@@ -275,6 +275,15 @@ public class SurveyAction extends BaseAction<Survey> implements UserAware,Sessio
 		surveyService.moveOrCopyPage(srcPid, targPid, pos);
 		return "designSurveyAction";
 	}
+	
+	public String analyzeSurvey(){
+		survey=surveyService.getSurveyWithChildren(sid);
+		surveyService.updateEntity(getModel());
+		ValueStack valueStack=ActionContext.getContext().getValueStack();
+		valueStack.push(survey);
+		return ""
+				+ "";
+	}
 }
 /*
  * public String designSurvey(){
